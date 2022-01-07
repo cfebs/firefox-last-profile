@@ -2,6 +2,11 @@
 
 echoerr() { echo "$@" 1>&2; }
 
+if [[ $# -lt 3 ]]; then
+    echo "Usage: $0 <bin> <default_profile>" 1>&2
+    exit 0
+fi
+
 bin="$1"
 [[ -z "$bin" ]] && echoerr "No bin provided" && exit 1
 shift

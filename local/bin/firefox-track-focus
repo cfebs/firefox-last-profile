@@ -9,7 +9,6 @@ CMD_SPY = ['xprop', '-root', '-spy', '_NET_ACTIVE_WINDOW']
 
 home_dir = os.environ.get('HOME')
 last_profile_dir = os.path.join(home_dir, '.local/var/last-firefox-profile/')
-print(last_profile_dir)
 os.makedirs(last_profile_dir, exist_ok=True)
 
 def write_profile(data):
@@ -34,17 +33,17 @@ def process_line(line):
     exe_basename = os.path.basename(cmd_line_parts[0])
     if exe_basename != 'firefox':
         print("Not firefox", exe_basename)
-        continue
+        return
 
     p_flag_idx = cmd_line_parts.index('-P')
     if not p_flag_idx:
         print("Invalid -P flag", cmd_line_parts)
-        continue
+        return
 
     profile_name = cmd_line_parts[p_flag_idx + 1]
     if not profile_name:
         print('No profile name', cmd_line_parts)
-        continue
+        return
 
     print("Got profile name", profile_name)
     write_profile(profile_name)

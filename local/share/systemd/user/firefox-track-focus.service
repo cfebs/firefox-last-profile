@@ -3,6 +3,7 @@ Description=Tracks the last firefox profile being used
 
 [Service]
 Type=simple
+Environment=PYTHONUNBUFFERED=1
 ExecStart=%h/.local/bin/firefox-track-focus
 Restart=always
 RestartSec=1

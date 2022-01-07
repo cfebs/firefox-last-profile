@@ -20,6 +20,6 @@ make install
 
 ## Constrains
 
-* `X11` only
+* `X11` and `systemd` only
 * Janky python3 for the spy
 * Relies on Firefox launching with the `firefox -P ${PROFILE}` cmdline

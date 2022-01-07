@@ -2,7 +2,7 @@
 Version=1.0
 Name=Firefox Launch Profile (last)
 GenericName=Web Browser
-Exec="~/.local/bin/firefox-last-profile firefox %u"
+Exec=~/.local/bin/firefox-last-profile firefox default %u
 Icon=firefox
 Terminal=false
 X-MultipleArgs=false

@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+if ! command -v "dmenu" >/dev/null 2>&1; then
+    echo "Missing dmenu"
+    exit 1;
+fi
+
+default_profile="${FIREFOX_DEFAULT_PROFILE:-default}"
+
+# get profile names, remove default so it can be added first
+profile_names="$(cat ~/.mozilla/firefox/profiles.ini | grep Name= | grep -v 'Name=default$' | awk -F'=' '{print $2}')"
+profile="$(echo -e "default\n$profile_names" | dmenu)"
+echo "Selected: $profile"
+if [[ -z "$profile" ]]; then
+    echo "Using default profile $default_profile"
+    profile="$default_profile"
+fi
+firefox -P "$profile" &
