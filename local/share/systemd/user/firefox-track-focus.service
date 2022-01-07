@@ -1,0 +1,11 @@
+[Unit]
+Description=Tracks the last firefox profile being used
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/firefox-track-focus
+Restart=always
+RestartSec=1
+
+[Install]
+WantedBy=default.target
