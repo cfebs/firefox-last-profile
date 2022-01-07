@@ -8,7 +8,7 @@ Tooling to help firefox achieve chrome's "open-link-in-last-used-profile" behavi
 make install
 ```
 
-> Use `make dryinstall` and check `./.local` to preview what's getting copied
+> Use `PREFIX=.local make install` and check `./.local` to preview what's getting copied
 
 ## Contents
 
