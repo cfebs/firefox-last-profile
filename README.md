@@ -8,6 +8,7 @@ Tooling to help firefox achieve chrome's "open-link-in-last-used-profile" behavi
 make install
 ```
 
+> Make sure `~/.local/bin` is added to your `PATH`
 > Use `PREFIX=.local make install` and check `./.local` to preview what's getting copied
 
 ## Start
@@ -19,6 +20,11 @@ make enable
 ```
 
 Check output from the service with `journalctl --user -feu firefox-track-focus.service`
+
+Quit your firefoxes and start them again with `firefox -P ${PROFILENAME}`
+
+> After install `dmenu-firefox-profile` and `rofi-firefox-profile` are provided to launch firefox
+with `firefox -P ${PROFILENAME}`.
 
 ## Contents
 
@@ -55,9 +61,9 @@ install -m644 -D -t .local/share/systemd/user ./local/share/systemd/user/firefox
 
 ## Notes
 
-The big one:
-* Relies on Firefox launching with the `firefox -P ${PROFILE}` cmdline. Firefox does not do this
+* **Relies on Firefox launching with the `firefox -P ${PROFILE}`**. Firefox does not do this
 by default via `about:profiles` or the `firefox --ProfileManager` manager window.
-
+* Chooses the profile `default` by default
 * `X11` and `systemd` only
+* Does not handle "last-window-focused" behavior if you have same profile open in multiple FF instances.
 * Janky python3
