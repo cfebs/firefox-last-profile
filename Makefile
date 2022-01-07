@@ -1,4 +1,4 @@
-PREFIX = ~/.local
+PREFIX ?= ~/.local
 
 .PHONY: help
 help: ## prints this help
