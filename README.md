@@ -33,7 +33,7 @@ Quit your firefoxes and start them again with `firefox -P ${PROFILENAME}`
 * `dmenu-firefox-profile`
 * `rofi-firefox-profile`
 
-with `firefox -P ${PROFILENAME}`.
+These will open a profile selector and start firefox with `firefox -P ${PROFILENAME}`.
 
 ## Details
 
