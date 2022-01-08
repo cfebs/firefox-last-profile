@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
 
 import os
+import logging
+import argparse
 import subprocess
 
 from subprocess import PIPE
+
+logging.basicConfig(encoding='utf-8', level=logging.INFO)
 
 CMD_SPY = ['xprop', '-root', '-spy', '_NET_ACTIVE_WINDOW']
 
@@ -16,14 +20,14 @@ def write_profile(data):
     with open(p, 'w') as f:
         f.write(data)
 
-    print('Wrote', data, 'to', p)
+    logging.info('Wrote %s to %s', data, p)
 
 def process_line(line):
     line = str(line.strip())
-    win_id = line.split(' ')[-1]
+    win_id = line.rsplit(' ', maxsplit=1)[-1]
     cmd_win_id = ['xprop', '-id', win_id, '_NET_WM_PID']
     result = subprocess.run(cmd_win_id, universal_newlines=True, encoding='utf-8', capture_output=True)
-    pid = str(result.stdout).split(' = ')[-1].strip()
+    pid = str(result.stdout).rsplit(' = ', maxsplit=1)[-1].strip()
     cmd_get_cmd = ['ps', '-p', pid, '-o', 'cmd', 'h']
     result = subprocess.run(cmd_get_cmd, universal_newlines=True, encoding='utf-8', capture_output=True)
     cmdline = result.stdout.strip()
@@ -32,25 +36,31 @@ def process_line(line):
 
     exe_basename = os.path.basename(cmd_line_parts[0])
     if exe_basename != 'firefox':
-        print("Not firefox", exe_basename)
+        logging.debug("Not firefox %s", exe_basename)
         return
 
     p_flag_idx = cmd_line_parts.index('-P')
     if not p_flag_idx:
-        print("Invalid -P flag", cmd_line_parts)
+        logging.warning("Invalid -P flag %s", cmd_line_parts)
         return
 
     profile_name = cmd_line_parts[p_flag_idx + 1]
     if not profile_name:
-        print('No profile name', cmd_line_parts)
+        logging.warning('No profile name %s', cmd_line_parts)
         return
 
-    print("Got profile name", profile_name)
+    logging.debug("Got profile name %s", profile_name)
     write_profile(profile_name)
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--verbose", help="set log level to debug")
+args = parser.parse_args()
+if args.verbosity:
+    logging.getLogger().setLevel(logging.DEBUG)
 
 with subprocess.Popen(CMD_SPY, universal_newlines=True, stdout=PIPE, encoding='utf-8') as p:
     for line in p.stdout:
         try:
             process_line(line)
         except Exception as e:
-            print('Err', e)
+            logging.error(e)
