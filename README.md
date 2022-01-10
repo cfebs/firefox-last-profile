@@ -5,10 +5,12 @@ Tooling to help firefox achieve chrome's "open-link-in-last-used-profile" behavi
 ## Install
 
 ```
-sudo make install
+make install
 ```
 
 Make sure `~/.local/bin` and `/usr/local/bin` are added to your `PATH`
+
+You will be prompted for sudo password to install bins.
 
 > Use `BIN_PREFIX=.local PREFIX=.local make install` and check `./.local` to preview what's getting copied
 
