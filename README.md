@@ -4,7 +4,6 @@ Tooling to help firefox achieve chrome's "open-link-in-last-used-profile" behavi
 
 ## Requirements
 
-* linux
 * `systemd`
 * `X11`
 
