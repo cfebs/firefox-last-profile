@@ -5,12 +5,12 @@ Tooling to help firefox achieve chrome's "open-link-in-last-used-profile" behavi
 ## Install
 
 ```
-make install
+sudo make install
 ```
 
-Make sure `~/.local/bin` is added to your `PATH`
+Make sure `~/.local/bin` and `/usr/local/bin` are added to your `PATH`
 
-> Use `PREFIX=.local make install` and check `./.local` to preview what's getting copied
+> Use `BIN_PREFIX=.local PREFIX=.local make install` and check `./.local` to preview what's getting copied
 
 ## Start
 
@@ -29,7 +29,7 @@ A phony task that enables and starts the user unit and sets the default browser 
 
 Quit your firefoxes and start them again with `firefox -P ${PROFILENAME}`
 
-`make install` places the following in `~/.local/bin`:
+`make install` places the following in `/usr/local/bin`:
 * `dmenu-firefox-profile`
 * `rofi-firefox-profile`
 
@@ -46,7 +46,7 @@ Here is everything that's included.
     * A companion `firefox-last-profile.desktop` entry so it can be used with xdg
 
 ```
-❯ make clean && PREFIX=.local make install
+❯ make clean && BIN_PREFIX=.local PREFIX=.local make install
 mkdir -p .local
 install -D -t .local/bin ./local/bin/firefox-last-profile ./local/bin/dmenu-firefox-profile ./local/bin/rofi-firefox-profile ./local/bin/firefox-track-focus
 install -m644 -D -t .local/share/applications ./local/share/applications/firefox-last-profile.desktop

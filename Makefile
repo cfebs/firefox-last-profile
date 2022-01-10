@@ -1,4 +1,5 @@
-PREFIX ?= ~/.local
+BIN_PREFIX ?= /usr/local/
+PREFIX ?= ~/.local/
 
 .PHONY: help
 help: ## prints this help
@@ -13,7 +14,7 @@ enable: ## enables service, sets default browser
 .PHONY: install
 install: ## installs files
 	mkdir -p $(PREFIX)
-	install -D -t $(PREFIX)/bin $(shell find ./local/bin -type f)
+	install -D -t $(BIN_PREFIX)/bin $(shell find ./local/bin -type f)
 	install -m644 -D -t $(PREFIX)/share/applications $(shell find ./local/share/applications -type f)
 	install -m644 -D -t $(PREFIX)/share/systemd/user $(shell find ./local/share/systemd/user -type f)
 
