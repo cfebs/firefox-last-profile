@@ -2,8 +2,8 @@
 
 echoerr() { echo "$@" 1>&2; }
 
-if [[ $# -lt 3 ]]; then
-    echo "Usage: $0 <bin> <default_profile> <url> [url ...]" 1>&2
+if [[ $# -lt 2 ]]; then
+    echo "Usage: $0 <bin> <default_profile> [url ...]" 1>&2
     exit 0
 fi
 
